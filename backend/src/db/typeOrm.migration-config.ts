@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
+import { UrlEntity } from './entities/url.entity';
 
 config();
 
@@ -13,7 +14,7 @@ const dataSourceOptions: DataSourceOptions = {
     username: configService.get<string>("DB_USERNAME"),
     password: configService.get<string>("DB_PASSWORD"),
     database: configService.get<string>("DB_NAME"),
-    entities: [],
+    entities: [UrlEntity],
     migrations: [__dirname + '/migrations/*.ts'],
     synchronize: false,
 }
