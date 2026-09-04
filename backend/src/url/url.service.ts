@@ -13,6 +13,7 @@ export class UrlService {
         private readonly urlRepo: Repository<UrlEntity>,
     ) {}
 
+
    private generateShortCode(): string {
      return randomBytes(6).toString('base64url');
    }
@@ -32,11 +33,12 @@ export class UrlService {
     }
    }
 
-    async createShortUrl(url: string): Promise<void> {
-        const urlEntity = new UrlEntity();
-        urlEntity.shortCode = await this.generateUniqueShortCode();
-        urlEntity.url = url;
+    async createShortUrl(url: string): Promise<UrlEntity> {
+        const urlEntity = this.urlRepo.create({
+            url,
+            shortCode: await this.generateUniqueShortCode()
+        });
 
-        await this.urlRepo.save(urlEntity);
+        return this.urlRepo.save(urlEntity);
     }
 }
