@@ -5,10 +5,10 @@ export class UrlEntity {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
 
-    @Column('text')
+    @Column({type: 'text', unique: true})
     url!: string;
 
-    @Column({name: 'short_code', type: 'text'})
+    @Column({name: 'short_code', type: 'text', unique: true})
     shortCode!: string;
 
     @CreateDateColumn({
